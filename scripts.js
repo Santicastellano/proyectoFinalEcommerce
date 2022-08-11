@@ -1,3 +1,43 @@
+const articulo = document.getElementById("Producto")
+
+fetch('https://jsonplaceholder.typicode.com/posts', {
+    method: 'POST',
+    body: JSON.stringify({
+        title: "cama",
+        descripcion: 'Colchon Cannon',
+        img: "./assets/imagen.jpg",
+        precio: "4250",
+        userId: 1,
+    }),
+    headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+    },
+})
+    .then(response => response.json())
+    .then(listado => {
+        const div = document.createElement("div")
+        div.innerHTML = `
+            <div class="card shadow mb-1 bg-dark rounded" style="width: 20rem;">
+                    <h5 class="card-title pt-2 text-center text-light">${listado.title}</h5>
+                    <img src="./assets/imagen.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <p class="card-text text-white-50 ">${listado.descripcion}</p>
+                    <h5 class="text-primary">Precio: <span class="precio">$${listado.precio}</span></h5>
+                <div class="d-grid gap-2">
+                    <button class="btn btn-dark button bordes">Añadir a Carrito</button>
+            </div>
+        </div>
+    </div>
+        `
+        articulo.append(div);
+    });
+
+
+
+
+
+
+
 const Clickbutton = document.querySelectorAll('.button')
 const tbody = document.querySelector('.tbody')
 let carrito = []
@@ -141,7 +181,7 @@ window.onload = function () {
 
 const finalizarCompra = document.getElementById("btn-comprar")
 
-finalizarCompra.addEventListener("click", ()=>{
+finalizarCompra.addEventListener("click", () => {
     Swal.fire({
         icon: 'error',
         title: 'Oops...',
